@@ -1,0 +1,6 @@
+{
+  "AppSyncApiName": "biggerfishamplify",
+  "DynamoDBBillingMode": "PAY_PER_REQUEST",
+  "DynamoDBEnableServerSideEncryption": false,
+  "AuthModeLastUpdated": "2023-11-07T00:34:03.537Z"
+}

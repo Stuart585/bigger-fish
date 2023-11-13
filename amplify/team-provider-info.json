@@ -1,0 +1,23 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-biggerfishamplify-dev-200046-authRole",
+      "UnauthRoleArn": "arn:aws:iam::447008609581:role/amplify-biggerfishamplify-dev-200046-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::447008609581:role/amplify-biggerfishamplify-dev-200046-authRole",
+      "Region": "ca-central-1",
+      "DeploymentBucketName": "amplify-biggerfishamplify-dev-200046-deployment",
+      "UnauthRoleName": "amplify-biggerfishamplify-dev-200046-unauthRole",
+      "StackName": "amplify-biggerfishamplify-dev-200046",
+      "StackId": "arn:aws:cloudformation:ca-central-1:447008609581:stack/amplify-biggerfishamplify-dev-200046/8bca1520-7780-11ee-b9d7-0205eba07166",
+      "AmplifyAppId": "d1luds4h45v2p3"
+    },
+    "categories": {
+      "api": {
+        "biggerfishamplify": {}
+      },
+      "auth": {
+        "biggerfishamplify": {}
+      }
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "resourceName": "s3biggerfishamplifystorage764fd781",
+  "bucketName": "biggerfishamplify-storage-764fd781",
+  "policyUUID": "95dd6c01",
+  "storageAccess": "authAndGuest",
+  "guestAccess": [
+    "READ"
+  ],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ]
+}
