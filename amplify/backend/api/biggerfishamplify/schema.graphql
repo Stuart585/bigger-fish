@@ -6,6 +6,8 @@ type Catch @model @auth(rules: [{allow: public}]) {
   date: String
   location: String
   locationId: String
+  test: String
+  test2: String
 }
 
 type Location @model @auth(rules: [{allow: public}]) {

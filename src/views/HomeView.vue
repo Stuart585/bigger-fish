@@ -25,8 +25,8 @@
         </button>
       </div>
       <!-- Table -->
-      <table class="w-full min-w-max table-auto text-left bg-slate-100">
-        <thead>
+      <table class="w-full min-w-max table-auto text-left bg-slate-100 rounded-sm ">
+        <thead class="bg-slate-200 outline outline-1 outline-slate-200">
           <tr>
             <th @click="sortCatches('name')">Angler</th>
             <th>Species</th>
@@ -36,7 +36,8 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="catchData in catches" :key="catchData" @click="selectCatch(catchData)">
+          <tr v-for="catchData in catches" :key="catchData" @click="selectCatch(catchData)"
+            class="outline outline-1 outline-slate-200">
             <td>{{ catchData.name }}</td>
             <td>{{ catchData.species }}</td>
             <td>{{ catchData.length }}</td>
@@ -52,9 +53,10 @@
         </div>
         <div class="w-full h-60 bg-sky-900 rounded-md">
           <div class="h-2/3 overflow-clip flex justify-center p-3">
-            <img src="./../assets/images/fish_profile.png" class="h-full object-scale-down rounded-full" />
+            <image-display v-if="selectedCatch.test" :imageKey="selectedCatch?.test"></image-display>
+            <img v-else src="./../assets/images/fish_profile.png" class="h-full object-scale-down rounded-full" />
           </div>
-          <div class="h-1/3 grid grid-cols-2 gap-5 p-3 text-slate-200">
+          <div class="h-1/3 grid grid-cols-2 gap-5 py-3 text-slate-200">
             <div class="text-right">
               Name: {{ selectedCatch.name }}
               <br />
@@ -75,6 +77,7 @@
 
 <script setup >
 import CardComponent from './../components/CardComponent.vue'
+import ImageDisplay from './../components/ImageDisplay.vue'
 import { ref, onMounted } from 'vue';
 import { useSiteStore } from './../stores/siteStore';
 import { storeToRefs } from 'pinia'
@@ -110,7 +113,6 @@ const setLocation = (locationId) => {
     .species[0].value
   catches.value = JSON.parse(JSON.stringify(store.getCatchesBySpecies(firstSpecies)))
   catches.value.sort((a, b) => b.length - a.length)
-
   selectedCatch.value = catches.value[0]
 }
 

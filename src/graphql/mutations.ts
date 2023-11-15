@@ -13,6 +13,9 @@ export const createCatch = /* GraphQL */ `
       length
       date
       location
+      locationId
+      test
+      test2
       createdAt
       updatedAt
       __typename
@@ -31,6 +34,9 @@ export const updateCatch = /* GraphQL */ `
       length
       date
       location
+      locationId
+      test
+      test2
       createdAt
       updatedAt
       __typename
@@ -48,6 +54,10 @@ export const deleteCatch = /* GraphQL */ `
       species
       length
       date
+      location
+      locationId
+      test
+      test2
       createdAt
       updatedAt
       __typename

@@ -14,46 +14,43 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
-export default defineComponent({
-  name: 'CardComponent',
-  props: {
-    titleTest: {
-      type: String,
-      required: false,
-    },
-    cardImage: {
-      default: '../assets/mouse.png',
-      type: String,
-    },
-    imageName: {
-      default: 'mouse.png',
-      type: String,
-    },
-    description: {
-      default: '',
-      type: String,
-    },
-    clickPath: {
-      type: String,
-    }
-  },
-  emits: ['cardClicked'],
-  setup(props) {
-    const { title, paragraph } = props;
+<script setup lang="ts">
+import { defineComponent, toRefs } from 'vue';
+import { defineProps, reactive } from "vue";
+// export default defineComponent({
+//   name: 'CardComponent',
+//   props: {
+//     titleTest: {
+//       type: String,
+//       required: false,
+//     },
+//   },
+//   emits: ['cardClicked'],
+//   setup(props) {
+//     const { titleTest } = props;
 
-    const handleClick = () => {
-      //emit('cardClicked')
-    }
+//     const handleClick = () => {
+//       //emit('cardClicked')
+//     }
 
-    return {
-      title,
-      paragraph,
-      handleClick
-    };
-  }
+//     return {
+//       titleTest,
+//       handleClick
+//     };
+//   }
+// });
+
+const props = defineProps({
+  titleTest: String,
 });
+
+//emits: ['cardClicked']
+
+const { titleTest } = toRefs(props);
+
+
+
+
 </script>
 
 <style scoped lang="scss"></style>

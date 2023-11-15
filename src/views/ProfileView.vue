@@ -1,7 +1,7 @@
 <template>
   <main>
-    <!-- <authenticator>
-      <template v-slot="{ user, signOut }"> -->
+    <authenticator>
+      <template v-slot="{ user, signOut }">
 
     <div class="grid grid-cols-2 w-full">
       <div class=" ">
@@ -17,7 +17,7 @@
     </div>
     <!-- Catches -->
     <div class="grid grid-cols-4 gap-3 w-full pt-10">
-      <div v-for="userCatch in userCatches" :key="userCatch" class="w-full bg-sky-800 rounded-md">
+      <!-- <div v-for="userCatch in userCatches" :key="userCatch" class="w-full bg-sky-800 rounded-md">
         <img src='./../assets/images/fish_profile.png' class="p-3 object-cover">
         <div class="px-3 text-slate-100">
           <p>Location: {{ userCatch.location }}</p>
@@ -25,7 +25,7 @@
           <p>Length: {{ userCatch.length }}cm</p>
           <p>Date{{ userCatch.date }}</p>
         </div>
-      </div>
+      </div> -->
     </div>
     <!-- Upload Form -->
     <UploadForm v-if="showUploadCatch == true" @cancelForm="closeForm" @submitForm="uploadNewCatch($event)">
@@ -38,22 +38,20 @@
       <br>
       {{ user.attributes.email }}
     </div>
-    <button @click="signOut">Sign Out</button>
-    <!-- </template>
-    </authenticator> -->
+    <button class="text-lg text-slate-300" @click="signOut">Sign Out</button>
+    </template>
+    </authenticator>
   </main>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import UploadForm from './../components/UploadForm.vue'
-import { API, Auth } from 'aws-amplify';
+import { API, Auth,  } from 'aws-amplify';
 import { createCatch } from './../graphql/mutations';
 import { ref, onMounted } from 'vue';
-
-// import { Authenticator } from "@aws-amplify/ui-vue";
-// import "@aws-amplify/ui-vue/styles.css";
-// import { Amplify } from 'aws-amplify';
-// import awsconfig from './aws-exports';
+import { Authenticator } from "@aws-amplify/ui-vue";
+import "@aws-amplify/ui-vue/styles.css";
+import {Storage} from "@aws-amplify/storage"
 
 
 let userData = {
@@ -61,13 +59,18 @@ let userData = {
   profileImage: "profilePic"
 }
 
-let user = ref();
+let user = ref({attributes: {name: ''}});
 
 let showUploadCatch = ref(false);
 
-const uploadNewCatch = async (event) => {
-  console.log("EVENT", event)
-  const catchTest = { name: event.user, species: event.species, length: event.length, date: event.date, location: event.location };
+const uploadNewCatch = async (event: any) => {
+  let imageSaveResp = null;
+  let imgKey = event.image.name + '-' + Date.now()
+  if (event?.image){
+    imageSaveResp = await Storage.put(imgKey, event.image)
+  }
+
+  const catchTest = { name: user.value.attributes.name, species: event.species, length: event.length, date: event.date, location: event.location, test: imageSaveResp?.key };
   await API.graphql({
     query: createCatch,
     variables: { input: catchTest }
@@ -75,14 +78,12 @@ const uploadNewCatch = async (event) => {
   showUploadCatch.value = false
 }
 
-const checkUser = async (event) => {
+const checkUser = async () => {
   try {
     const currentUser = await Auth.currentAuthenticatedUser();
     user.value = currentUser;
-    console.log("Checked user: ", user)
   } catch (error) {
-    console.log("user error: ", error)
-    user.value = null
+    user.value = {attributes: {name: ''}}
   }
 }
 

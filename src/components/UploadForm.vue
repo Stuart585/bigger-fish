@@ -2,11 +2,11 @@
     <div class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60">
         <div class="text-2xl w-1/3 h-max flex flex-col justify-center bg-gray-200 p-5 rounded-sm">
             <form @submit.prevent="handleSubmit">
-                <div class="flex flex-col justify-items-start">
+                <!-- <div class="flex flex-col justify-items-start">
                     <label for="name" class="">Name:</label>
                     <input type="text" required minlength="1" maxlength="20" size="10" class="inputClass"
                         v-model="newCatch.user" />
-                </div>
+                </div> -->
                 <div class="flex flex-col justify-items-start">
                     <label for="name" class="">Location:</label>
                     <br />
@@ -28,7 +28,7 @@
                 <div class="flex flex-col justify-items-start">
                     <label for="name" v-bind:class="{ 'text-slate-400': !newCatch.location }">Species:</label>
                     <br />
-                    <label v-for="species in getSpeciesByLocation(newCatch.location)" :key="species">
+                    <label v-for="species in getSpeciesByLocation(newCatch.location)" :key="species.value">
                         <input type="radio" name="species" v-model="newCatch.species" :value="species.value" />
                         {{ species.label }}
                     </label>
@@ -45,6 +45,9 @@
                     <input type="text" required minlength="1" maxlength="20" size="10" class="inputClass"
                         v-model="newCatch.date" />
                 </div>
+                <div>
+                    <input type="file" @change="uploadImage" />
+                </div>
                 <input type="submit" value="Submit"
                     class="text-xl border-0 border-gray-400 rounded-sm px-3 bg-gray-100 cursor-pointer" />
                 <button class="text-xl border-0 border-gray-400 rounded-sm px-3 bg-gray-100 cursor-pointer"
@@ -56,7 +59,7 @@
     </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { useSiteStore } from './../stores/siteStore';
 import { storeToRefs } from 'pinia'
 import { ref } from 'vue';
@@ -75,7 +78,17 @@ let newCatch = ref({
     image: ''
 })
 
+let fishPic;
+
 const handleSubmit = () => {
-    emit('submitForm', newCatch)
+    console.log("New Catch: ", newCatch.value)
+    emit('submitForm', newCatch.value)
+}
+
+const uploadImage = async (e: any) => {
+    console.log("Upload Image: ")
+    const file = e.target.files[0]
+    fishPic = file;
+    newCatch.value.image = file;
 }
 </script>

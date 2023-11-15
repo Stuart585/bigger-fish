@@ -10,6 +10,9 @@ export const getCatch = /* GraphQL */ `
       length
       date
       location
+      locationId
+      test
+      test2
       createdAt
       updatedAt
       __typename
@@ -30,6 +33,9 @@ export const listCatches = /* GraphQL */ `
         length
         date
         location
+        locationId
+        test
+        test2
         createdAt
         updatedAt
         __typename
