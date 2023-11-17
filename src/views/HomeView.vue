@@ -1,34 +1,39 @@
 <template>
   <main>
     <div v-if="selectedLocation === null" class="h-screen">
-      <div class="flex justify-center my-10">
+      <!-- <div class="flex justify-center my-10">
         <h1 class="text-3xl font-bold text-slate-100">Select Region</h1>
-      </div>
-      <div class="grid grid-cols-3 gap-3">
+      </div> -->
+      <div class="grid grid-cols-3 gap-3 mt-32">
         <CardComponent v-for="location in allLocations" :key="location" :titleTest="location.name"
           @cardClicked="setLocation(location.id)" />
       </div>
     </div>
-    <div v-if="selectedLocation !== null">
+    <div v-if="selectedLocation !== null" class="pt-20">
       <!-- Title -->
-      <div class="flex text-xl text-slate-100">
+      <!-- <div class="flex text-xl text-slate-100">
         <div class="w-full">{{ getLocationById(selectedLocation).name }}</div>
         <div @click="selectedLocation = null" class="cursor-pointer">Back</div>
-      </div>
+      </div> -->
       <!-- banner image -->
-      <img src="./../assets/images/lake1photo.jpg" class="w-full h-60 object-cover" />
+      <div class=" h-60 text-8xl text-white font-semibold ">
+        <div class="flex justify-center items-center bg-white h-full w-full bg-opacity-0">{{
+          getLocationById(selectedLocation).name }}</div>
+      </div>
       <!-- species -->
       <div class="flex flex-cols gap-3 my-10">
-        <button v-for="species in getLocationById(selectedLocation).species" :key="species"
+        <!-- <button v-for="species in getLocationById(selectedLocation).species" :key="species"
           class="bg-sky-900 w-full p-3 rounded-lg text-slate-100 text-xl" @click="setSpecies(species)">
           {{ species.label }}
-        </button>
+        </button> -->
+        <button-component v-for="species in getLocationById(selectedLocation).species" :key="species" :species="species" @buttonClick="setSpecies(species)"></button-component>
       </div>
       <!-- Table -->
-      <table class="w-full min-w-max table-auto text-left bg-slate-100 rounded-sm ">
-        <thead class="bg-slate-200 outline outline-1 outline-slate-200">
-          <tr>
-            <th @click="sortCatches('name')">Angler</th>
+      <div class="rounded-md overflow-hidden">
+      <table class="w-full min-w-max table-auto text-left bg-white  bg-opacity-70 ">
+        <thead class=" outline outline-1 outline-slate-200">
+          <tr >
+            <th @click="sortCatches('name')"><div class="px-3 py-1">Angler</div></th>
             <th>Species</th>
             <th @click="sortCatches('length')">Length</th>
             <th>Date</th>
@@ -38,7 +43,7 @@
         <tbody>
           <tr v-for="catchData in catches" :key="catchData" @click="selectCatch(catchData)"
             class="outline outline-1 outline-slate-200">
-            <td>{{ catchData.name }}</td>
+            <td><div class="px-3 py-1">{{ catchData.name }}</div></td>
             <td>{{ catchData.species }}</td>
             <td>{{ catchData.length }}</td>
             <td>{{ catchData.date }}</td>
@@ -46,6 +51,7 @@
           </tr>
         </tbody>
       </table>
+    </div>
       <!-- Selected Catch -->
       <div class="grid grid-cols-2 gap-3 my-10">
         <div>
@@ -77,6 +83,7 @@
 
 <script setup >
 import CardComponent from './../components/CardComponent.vue'
+import ButtonComponent from './../components/ButtonComponent.vue'
 import ImageDisplay from './../components/ImageDisplay.vue'
 import { ref, onMounted } from 'vue';
 import { useSiteStore } from './../stores/siteStore';
@@ -130,3 +137,11 @@ onMounted(() => {
   getCatches()
 })
 </script>
+
+<style>
+.banner-bg {
+  background-image: url("./../assets/images/centennial-lake-1.png");
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+}</style>
