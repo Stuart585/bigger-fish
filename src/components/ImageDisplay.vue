@@ -1,6 +1,6 @@
 <template>
     <div v-if="imageKey">
-        <img :src="signedURL" />
+        <img class="h-full w-full" :src="signedURL" />
     </div>
 </template>
 
@@ -25,7 +25,6 @@ const getImage = async () => {
 }
 
 watch(imageKey, (newValue, oldValue) => {
-  console.log(newValue, oldValue);
   getImage();
 });
 

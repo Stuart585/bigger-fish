@@ -10,57 +10,57 @@
       </div>
     </div>
     <div v-if="selectedLocation !== null" class="pt-20">
-      <!-- Title -->
-      <!-- <div class="flex text-xl text-slate-100">
-        <div class="w-full">{{ getLocationById(selectedLocation).name }}</div>
-        <div @click="selectedLocation = null" class="cursor-pointer">Back</div>
-      </div> -->
       <!-- banner image -->
       <div class=" h-60 text-8xl text-white font-semibold ">
         <div class="flex justify-center items-center bg-white h-full w-full bg-opacity-0">{{
           getLocationById(selectedLocation).name }}</div>
+        <!-- <div @click="selectedLocation = null" class="cursor-pointer">Back</div> -->
       </div>
       <!-- species -->
       <div class="flex flex-cols gap-3 my-10">
-        <!-- <button v-for="species in getLocationById(selectedLocation).species" :key="species"
-          class="bg-sky-900 w-full p-3 rounded-lg text-slate-100 text-xl" @click="setSpecies(species)">
-          {{ species.label }}
-        </button> -->
-        <button-component v-for="species in getLocationById(selectedLocation).species" :key="species" :species="species" @buttonClick="setSpecies(species)"></button-component>
+        <button-component v-for="species in getLocationById(selectedLocation).species" :key="species" :species="species"
+          @buttonClick="setSpecies(species.value)"></button-component>
       </div>
       <!-- Table -->
       <div class="rounded-md overflow-hidden">
-      <table class="w-full min-w-max table-auto text-left bg-white  bg-opacity-70 ">
-        <thead class=" outline outline-1 outline-slate-200">
-          <tr >
-            <th @click="sortCatches('name')"><div class="px-3 py-1">Angler</div></th>
-            <th>Species</th>
-            <th @click="sortCatches('length')">Length</th>
-            <th>Date</th>
-            <th>Location</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="catchData in catches" :key="catchData" @click="selectCatch(catchData)"
-            class="outline outline-1 outline-slate-200">
-            <td><div class="px-3 py-1">{{ catchData.name }}</div></td>
-            <td>{{ catchData.species }}</td>
-            <td>{{ catchData.length }}</td>
-            <td>{{ catchData.date }}</td>
-            <td>{{ catchData.location }}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+        <table class="w-full min-w-max table-auto text-left bg-white  bg-opacity-70 ">
+          <thead class=" outline outline-1 outline-slate-200">
+            <tr>
+              <th>
+                <div class="px-3 py-1">Angler</div>
+              </th>
+              <th>Species</th>
+              <th>Length</th>
+              <th>Date</th>
+              <th>Location</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="catchData in filteredCatches" :key="catchData" @click="selectCatch(catchData)"
+              class="outline outline-1 outline-slate-200 cursor-pointer">
+              <td>
+                <div class="px-3 py-1">{{ catchData.name }}</div>
+              </td>
+              <td>{{ catchData.species }}</td>
+              <td>{{ catchData.length }}</td>
+              <td>{{ catchData.date }}</td>
+              <td>{{ catchData.location }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
       <!-- Selected Catch -->
       <div class="grid grid-cols-2 gap-3 my-10">
-        <div>
-          <img src="./../assets/images/lake1photo.jpg" class="w-full h-60 object-cover" />
+        <div class=" h-72 overflow-hidden rounded-md bg-white bg-opacity-30 flex items-center justify-center">
+          <image-display v-if="selectedCatch.image" :imageKey="selectedCatch?.image"></image-display>
+          <img v-else src="./../assets/images/fish-outline.png" class="" />
         </div>
-        <div class="w-full h-60 bg-sky-900 rounded-md">
-          <div class="h-2/3 overflow-clip flex justify-center p-3">
-            <image-display v-if="selectedCatch.test" :imageKey="selectedCatch?.test"></image-display>
-            <img v-else src="./../assets/images/fish_profile.png" class="h-full object-scale-down rounded-full" />
+        <div class="w-full h-72  bg-white  bg-opacity-30 rounded-md pt-5">
+          <div class="w-full flex justify-center ">
+            <div class="h-40 w-40 overflow-clip  rounded-full">
+              <image-display v-if="selectedCatch.userImage" :imageKey="selectedCatch?.userImage"></image-display>
+              <img v-else src="./../assets/images/profile_pic_default_1.jpg" class="h-full w-full" />
+            </div>
           </div>
           <div class="h-1/3 grid grid-cols-2 gap-5 py-3 text-slate-200">
             <div class="text-right">
@@ -95,38 +95,50 @@ const store = useSiteStore();
 const { getLocationById } = storeToRefs(store)
 
 let selectedLocation = ref(null)
-
 let allLocations = ref(store.locations)
-let locationSpecies = ref([])
 let selectedSpecies = ref('')
 let selectedCatch = ref({})
-
 let catches = ref([])
+let filteredCatches = ref([])
 
 const getCatches = async () => {
-  const newCatches = await API.graphql({
-    query: listCatches
-  })
-  store.allCatches = newCatches.data.listCatches.items
+  let newCatches = '';
+  try {
+    newCatches = await API.graphql({
+      query: listCatches
+    })
+  } catch (error) {
+    console.log("Error: ", error)
+  }
+
+  if (newCatches?.data?.listCatches?.items) {
+    store.allCatches = newCatches.data.listCatches.items
+  }
 }
 
 const setLocation = (locationId) => {
   selectedLocation.value = locationId
-  locationSpecies.value = allLocations.value.find((location) => {
-    location.id === locationId
-  })
 
-  const firstSpecies = allLocations.value.find((location) => location.id === selectedLocation.value)
+  const firstSpecies = allLocations.value.find((location) => location.id === locationId)
     .species[0].value
-  catches.value = JSON.parse(JSON.stringify(store.getCatchesBySpecies(firstSpecies)))
+
+  catches.value = JSON.parse(JSON.stringify(store.getCatchesByLocation(locationId)))
   catches.value.sort((a, b) => b.length - a.length)
-  selectedCatch.value = catches.value[0]
+
+  setSpecies(firstSpecies)
 }
 
 const setSpecies = (species) => {
-  selectedSpecies.value = species
-  catches.value = JSON.parse(JSON.stringify(store.getCatchesBySpecies(selectedSpecies.value.value)))
-  catches.value.sort((a, b) => b.length - a.length)
+   selectedSpecies.value = species
+
+  filteredCatches.value = catches.value.filter((catchObject) => catchObject.species === species)
+  filteredCatches.value.sort((a, b) => b.length - a.length)
+
+  if (filteredCatches.value[0]) {
+    selectedCatch.value = filteredCatches.value[0]
+  } else {
+    selectedCatch.value = {}
+  }
 }
 
 const selectCatch = (catchData) => {
@@ -144,4 +156,5 @@ onMounted(() => {
   background-size: 100%;
   background-repeat: no-repeat;
   background-position: center;
-}</style>
+}
+</style>

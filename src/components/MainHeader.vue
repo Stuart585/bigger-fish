@@ -20,7 +20,7 @@ onMounted(() => {
 })
 
 const handleScroll = () => {
-  isScrolled.value = window.scrollY > 0;
+  isScrolled.value = window.scrollY > 50;
 }
 
 </script>

@@ -55,6 +55,10 @@ export const useSiteStore = defineStore('siteStore', {
       return (species: string) =>
         state.allCatches.filter((catchObject) => catchObject.species === species)
     },
+    getCatchesByLocation: (state) => {
+      return (locationId: string) =>
+        state.allCatches.filter((catchObject) => catchObject.location === locationId)
+    },
     getSpeciesByLocation: (state) => {
         return (locationId: string) => state.locations.find((location) => location.id === locationId)?.species
     },

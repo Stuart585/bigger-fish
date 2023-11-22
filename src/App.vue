@@ -16,11 +16,14 @@ Amplify.configure(awsconfig);
   <main-header></main-header>
 
   <div class=" main-bg ">
-    
   </div>
-  <div class="h-max bg-black bg-opacity-50 flex justify-center">
-      <RouterView class="w-2/3" />
-    </div>
+  <div class="overlay-bg bg-black bg-opacity-50 ">
+  </div>
+
+  <div class="flex justify-center h-full">
+    <!-- <div class="h-full bg-black bg-opacity-50 flex justify-center"> -->
+    <RouterView class="w-2/3" />
+  </div>
 </template>
 
 <style scoped>
@@ -35,11 +38,25 @@ Amplify.configure(awsconfig);
   background-repeat: no-repeat;
   background-position: bottom right;
   position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    z-index: -1;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: -1;
+}
+
+.overlay-bg {
+  /* background-color: black; */
+   background-size: cover;
+  background-repeat: no-repeat;
+  background-position: bottom right; 
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: -1;
 }
 </style>

@@ -1,6 +1,42 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const onCreateUserData = /* GraphQL */ `
+  subscription OnCreateUserData($filter: ModelSubscriptionUserDataFilterInput) {
+    onCreateUserData(filter: $filter) {
+      id
+      profileImage
+      userEmail
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onUpdateUserData = /* GraphQL */ `
+  subscription OnUpdateUserData($filter: ModelSubscriptionUserDataFilterInput) {
+    onUpdateUserData(filter: $filter) {
+      id
+      profileImage
+      userEmail
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onDeleteUserData = /* GraphQL */ `
+  subscription OnDeleteUserData($filter: ModelSubscriptionUserDataFilterInput) {
+    onDeleteUserData(filter: $filter) {
+      id
+      profileImage
+      userEmail
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
 export const onCreateCatch = /* GraphQL */ `
   subscription OnCreateCatch($filter: ModelSubscriptionCatchFilterInput) {
     onCreateCatch(filter: $filter) {
@@ -11,8 +47,8 @@ export const onCreateCatch = /* GraphQL */ `
       date
       location
       locationId
-      test
-      test2
+      image
+      userImage
       createdAt
       updatedAt
       __typename
@@ -29,8 +65,8 @@ export const onUpdateCatch = /* GraphQL */ `
       date
       location
       locationId
-      test
-      test2
+      image
+      userImage
       createdAt
       updatedAt
       __typename
@@ -47,8 +83,8 @@ export const onDeleteCatch = /* GraphQL */ `
       date
       location
       locationId
-      test
-      test2
+      image
+      userImage
       createdAt
       updatedAt
       __typename

@@ -1,3 +1,9 @@
+type UserData @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  profileImage: String
+  userEmail: String
+}
+
 type Catch @model @auth(rules: [{allow: public}]) {
   id: ID!
   name: String!
@@ -6,9 +12,10 @@ type Catch @model @auth(rules: [{allow: public}]) {
   date: String
   location: String
   locationId: String
-  test: String
-  test2: String
+  image: String
+  userImage: String
 }
+
 
 type Location @model @auth(rules: [{allow: public}]) {
   id: ID!

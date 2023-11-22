@@ -1,51 +1,6 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const createUserData = /* GraphQL */ `
-  mutation CreateUserData(
-    $input: CreateUserDataInput!
-    $condition: ModelUserDataConditionInput
-  ) {
-    createUserData(input: $input, condition: $condition) {
-      id
-      profileImage
-      userEmail
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const updateUserData = /* GraphQL */ `
-  mutation UpdateUserData(
-    $input: UpdateUserDataInput!
-    $condition: ModelUserDataConditionInput
-  ) {
-    updateUserData(input: $input, condition: $condition) {
-      id
-      profileImage
-      userEmail
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const deleteUserData = /* GraphQL */ `
-  mutation DeleteUserData(
-    $input: DeleteUserDataInput!
-    $condition: ModelUserDataConditionInput
-  ) {
-    deleteUserData(input: $input, condition: $condition) {
-      id
-      profileImage
-      userEmail
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
 export const createCatch = /* GraphQL */ `
   mutation CreateCatch(
     $input: CreateCatchInput!
@@ -59,8 +14,8 @@ export const createCatch = /* GraphQL */ `
       date
       location
       locationId
-      image
-      userImage
+      test
+      test2
       createdAt
       updatedAt
       __typename
@@ -80,8 +35,8 @@ export const updateCatch = /* GraphQL */ `
       date
       location
       locationId
-      image
-      userImage
+      test
+      test2
       createdAt
       updatedAt
       __typename
@@ -101,8 +56,8 @@ export const deleteCatch = /* GraphQL */ `
       date
       location
       locationId
-      image
-      userImage
+      test
+      test2
       createdAt
       updatedAt
       __typename
