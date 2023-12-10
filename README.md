@@ -1,6 +1,12 @@
 # bigger-fish
 
-This template should help get you started developing with Vue 3 in Vite.
+A website for anglers in the Madawaska region. View the biggest and best catches from your favourite fishing sites. Create a profile and upload your own to see who's is the biggest!!!
+
+## Stack
+
+Frontend built with Vue 3, using the composition api and TypeScript. Styled using TailwindCss.
+
+Backend created with AWS Amplify, using S3, Dynamo and Auth.
 
 ## Recommended IDE Setup
 
