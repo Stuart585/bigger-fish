@@ -12,13 +12,15 @@
             <p>Date{{ userCatch?.date }}</p>
         </div>
     </div> -->
-    <div class="w-full bg-white bg-opacity-20 rounded-md h-32 overflow-hidden">
-            <image-display v-if="userCatch?.image" :imageKey="userCatch?.image"></image-display>
-            <img v-else src="./../assets/images/fish-outline.png" class="" />
+    <div class="card h-32">
+    <div class="card__side card__side--front w-full h-full bg-white bg-opacity-20 rounded-md overflow-hidden">
+        <image-display v-if="userCatch?.image" :imageKey="userCatch?.image"></image-display>
+        <img v-else src="./../assets/images/fish-outline.png" class="" />
     </div>
-    <div class="card-back">
+    <div class="card__side card__side--back h-full">
         test
     </div>
+</div>
 </template>
 
 <script setup lang="ts">
@@ -41,7 +43,40 @@ const { userCatch } = toRefs(props);
     background-position: bottom right;
 }
 
-.flip-card {
+.card {
+    // functionality
+    perspective: 150rem;
+    -moz-perspective: 150rem;
+    position: relative;
 
-}
-</style>
+
+    &__side {
+
+        transition: all .8s ease;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        backface-visibility: hidden;
+        border-radius: 3px;
+        overflow: hidden;
+
+        &--front {
+
+        };
+
+        &--back {
+            transform: rotateY(180deg);
+            background-color: #a1a1a1;
+        };
+    }
+
+    &:hover &__side--front {
+        transform: rotateY(-180deg);
+    };
+
+    &:hover &__side--back {
+        transform: rotateY(0);
+    };
+
+}</style>
