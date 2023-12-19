@@ -22,7 +22,7 @@ Amplify.configure(awsconfig);
 
   <div class="flex justify-center h-full">
     <!-- <div class="h-full bg-black bg-opacity-50 flex justify-center"> -->
-    <RouterView class="w-2/3" />
+    <RouterView class="w-4/5 md:w-2/3" />
   </div>
 </template>
 

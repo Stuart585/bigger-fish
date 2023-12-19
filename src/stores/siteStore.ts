@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia'
+import type { LocationType, catchType } from './models'
 
 export const useSiteStore = defineStore('siteStore', {
   state: () => ({
@@ -12,19 +13,7 @@ export const useSiteStore = defineStore('siteStore', {
           { value: 'pike', label: 'Pike' },
           { value: 'trout', label: 'Trout' }
         ],
-        bannerImage: '',
-        cardImage: ''
-      },
-      {
-        id: 'schooner',
-        name: 'Schooner Lake',
-        species: [
-            { value: 'bass', label: 'Bass' },
-            { value: 'walleye', label: 'Walleye' },
-            { value: 'pike', label: 'Pike' },
-          ],
-        bannerImage: '',
-        cardImage: ''
+        cardImage: "centennial-map-2.png"
       },
       {
         id: 'shiner',
@@ -35,16 +24,25 @@ export const useSiteStore = defineStore('siteStore', {
             { value: 'perch', label: 'Perch' },
             { value: 'trout', label: 'Trout' }
           ],
-        bannerImage: '',
-        cardImage: ''
-      }
-    ],
+        cardImage: 'shiner-map-1.png'
+      },
+      {
+        id: 'schooner',
+        name: 'Schooner Lake',
+        species: [
+            { value: 'bass', label: 'Bass' },
+            { value: 'walleye', label: 'Walleye' },
+            { value: 'pike', label: 'Pike' },
+          ],
+        cardImage: 'schooner-map-1.png'
+      },
+     
+    ] as LocationType[],
     userData: {
       name: 'Bob69',
       profileImage: 'profilePic'
     },
-    //allCatches: [] as catchType[],
-    allCatches: [] as any[],
+    allCatches: [] as catchType[],
     selectedLocation: null
   }),
   getters: {
@@ -62,13 +60,8 @@ export const useSiteStore = defineStore('siteStore', {
     getSpeciesByLocation: (state) => {
         return (locationId: string) => state.locations.find((location) => location.id === locationId)?.species
     },
-  }
+    getCatchesByUser: (state) => {
+      return (userName: string) =>  state.allCatches.filter((catchObject) => catchObject.name === userName)
+  }}
 })
 
-interface catchType {
-  name: string
-  species: string
-  length: number
-  date: string
-  location: string
-}
