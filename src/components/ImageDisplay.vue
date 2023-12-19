@@ -1,6 +1,6 @@
 <template>
-    <div v-if="imageKey">
-        <img class="h-full w-full" :src="signedURL" />
+    <div v-if="imageKey" class="bg-red-200 h-full w-full ">
+        <img class="object-cover h-full w-full" :src="signedURL" />
     </div>
 </template>
 
