@@ -1,7 +1,7 @@
 <template>
     <div class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60">
-        <div class="text-2xl w-1/3 h-max flex flex-col justify-center bg-gray-200 p-5 rounded-sm">
-            <form @submit.prevent="handleSubmit">
+        <div class="text-2xl w-1/2 h-max flex flex-col justify-center  p-5 rounded-sm form-bg">
+            <form @submit.prevent="handleSubmit" class="w-1/2">
                 <!-- User Name -->
                 <div class="flex flex-col justify-items-start py-2">
                     <label for="name">User Name:</label>
@@ -58,3 +58,19 @@ const uploadImage = async (e: any) => {
     profileData.value.profileImage = file;
 }
 </script>
+
+<style lang="scss" scoped >
+
+.form-bg {
+    background-image: linear-gradient(105deg, rgba(#eee, .9) 0%, rgba(#eee, .9) 60%, transparent 50%),  url(../assets/images/lake-1.jpg);
+    background-size: 100%;
+    border-radius: 3px;
+
+    //height: 50rem;
+}
+
+// .form-input {
+//     @apply text-md ;
+// }
+
+</style>
