@@ -5,7 +5,7 @@
                 <!-- User Name -->
                 <div class="flex flex-col justify-items-start py-2">
                     <label for="name">User Name:</label>
-                    <input type="text" minlength="1" maxlength="20" size="10" class="inputClass" v-model="profileData.userName"/>
+                    <input type="text" minlength="1" maxlength="20" size="10" class="input" v-model="profileData.userName"/>
                 </div>
                 <!-- Profile Pic -->
                 <div class="flex flex-col justify-items-start pt-2 pb-4">
@@ -62,11 +62,15 @@ const uploadImage = async (e: any) => {
 <style lang="scss" scoped >
 
 .form-bg {
-    background-image: linear-gradient(105deg, rgba(#eee, .9) 0%, rgba(#eee, .9) 60%, transparent 50%),  url(../assets/images/lake-1.jpg);
+    background-image: linear-gradient(105deg, rgba(#eee, .9) 0%, rgba(#eee, .9) 60%, transparent 50%),  url(../assets/images/lake-photo-4.jpg);
     background-size: 100%;
     border-radius: 3px;
 
     //height: 50rem;
+}
+
+.input {
+    @apply text-slate-800 border-b-2 border-slate-800;
 }
 
 // .form-input {
