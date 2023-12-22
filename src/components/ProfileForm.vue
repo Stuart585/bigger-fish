@@ -4,8 +4,9 @@
             <form @submit.prevent="handleSubmit" class="w-1/2">
                 <!-- User Name -->
                 <div class="flex flex-col justify-items-start py-2">
-                    <label for="name">User Name:</label>
-                    <input type="text" minlength="1" maxlength="20" size="10" class="input" v-model="profileData.userName"/>
+                   
+                    <input type="text" minlength="1" maxlength="20" size="10" class="input peer" placeholder="Username" v-model="profileData.userName"/>
+                    <label for="name" class="formLabel">User Name:</label>
                 </div>
                 <!-- Profile Pic -->
                 <div class="flex flex-col justify-items-start pt-2 pb-4">
@@ -70,8 +71,29 @@ const uploadImage = async (e: any) => {
 }
 
 .input {
-    @apply text-slate-800 border-b-2 border-slate-800;
+    @apply text-slate-800 text-lg px-3 py-1 border-b-4  border-transparent ;
+
+    @apply focus:border-solid focus:outline-none focus:border-b-4 focus:border-green-400 focus:shadow-lg focus:shadow-slate-300;
+
+    @apply transition duration-500;
+
+    &::-webkit-input-placeholder {
+            @apply  text-slate-400;
+        };
+
 }
+
+.formLabel {
+    @apply relative  text-sm text-slate-800 pl-2 pb-1 opacity-100 peer-placeholder-shown:opacity-0  transition duration-200;
+}
+
+// .input:placeholder-shown + & label {
+//     opacity: 0;
+// }
+
+// .label {
+//     @apply text-slate-800 text-lg;
+// }
 
 // .form-input {
 //     @apply text-md ;
