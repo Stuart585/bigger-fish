@@ -6,12 +6,12 @@
                 <div class="flex flex-col justify-items-start py-2">
                    
                     <input type="text" minlength="1" maxlength="20" size="10" class="input peer" placeholder="Username" v-model="profileData.userName"/>
-                    <label for="name" class="formLabel">User Name:</label>
+                    <label for="name" class="form-label">User Name:</label>
                 </div>
                 <!-- Profile Pic -->
-                <div class="flex flex-col justify-items-start pt-2 pb-4">
-                    <label for="file" class="pb-2">Upload Profile Image:</label>
-                    <input type="file" @change="uploadImage" />
+                <div class="flex flex-col justify-items-start  bg-green-200">
+                     <label for="file-upload" class="">Upload Profile Image:</label>
+                    <input id="file-upload" type="file" @change="uploadImage" class="hidden" />
                 </div>
                
                 <!-- Submit Form -->
@@ -20,7 +20,7 @@
                 </div>
                 <input type="submit" value="Submit"
                     class="text-xl border-0 border-gray-400 rounded-sm px-3 bg-gray-100 cursor-pointer" />
-                <button class="text-xl border-0 border-gray-400 rounded-sm px-3 bg-gray-100 cursor-pointer"
+                <button class="ml-2 text-xl border-0 border-gray-400 rounded-sm px-3 bg-gray-100 cursor-pointer"
                     @click="$emit('cancelForm')">
                     Cancel
                 </button>
@@ -80,11 +80,14 @@ const uploadImage = async (e: any) => {
     &::-webkit-input-placeholder {
             @apply  text-slate-400;
         };
-
 }
 
-.formLabel {
+.form-label {
     @apply relative  text-sm text-slate-800 pl-2 pb-1 opacity-100 peer-placeholder-shown:opacity-0  transition duration-200;
+}
+
+.upload-input {
+@apply text-slate-600 text-lg bg-green-400;
 }
 
 // .input:placeholder-shown + & label {
